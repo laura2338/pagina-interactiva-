@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página Interactiva</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f5;
+      color: #333;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #0052D4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand {
+      color: white;
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 5px;
+    }
+
+    .menu-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .menu-button {
+      background: white;
+      color: #0052D4;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95em;
+      transition: background 0.3s;
+    }
+
+    .menu-button:hover {
+      background: #e6e6e6;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-top: 6px;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .dropdown a {
+      color: #0052D4;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .dropdown a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .image-banner, #pdfSection, #videoSection {
+      display: none;
+      margin-top: 100px;
+      width: 100%;
+      height: auto;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-top: 120px;
+      padding: 60px 20px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .welcome h1 {
+      font-size: 2.5em;
+      color: #0052D4;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .copyright {
+      font-size: 0.8em;
+      color: #666;
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    .floating-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff5722;
+      color: white;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1em;
+      font-weight: bold;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1001;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="brand">Laura Calapsu</div>
+    <div class="menu-wrapper">
+      <button class="menu-button" onclick="toggleMenu()">Menú ▾</button>
+      <div class="dropdown" id="menuDropdown">
+        <a onclick="showSection('banner')">🏞 Ver Banner</a>
+        <a onclick="showSection('pdf')">📄 Ver PDF</a>
+        <a onclick="showSection('video')">🎥 Ver Video</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAJE DE BIENVENIDA -->
+  <div id="welcomeMessage" class="welcome">
+    <h1>Bienvenido a mi página interactiva</h1>
+    <p>Explora contenido sin salir de esta plataforma</p>
+  </div>
+
+  <!-- BANNER -->
+  <img class="image-banner" id="bannerSection" src="image-banner/banner.jpg" alt="Banner" />
+
+  <!-- PDF -->
+  <section id="pdfSection">
+    <h2>Documento PDF</h2>
+    <iframe src="mi archivo pdf/Turismo en Purace.pdf" height="600px"></iframe>
+    <div class="copyright">© Documento PDF - Todos los derechos reservados</div>
+  </section>
+
+  <!-- VIDEO -->
+  <section id="videoSection">
+    <h2>Video Educativo</h2>
+    <iframe height="500px" src="https://www.youtube.com/embed/nREW8iMRVu4" allowfullscreen></iframe>
+    <div class="copyright">© Video de YouTube - Propiedad de sus respectivos autores</div>
+  </section>
+
+  <!-- BOTÓN FLOTANTE -->
+  <button class="floating-button" onclick="alert('¡soy Laura, Bienvenido a mi pagina  😊')">
+    Bienvenido a mi página
+  </button>
+
+  <!-- SCRIPTS -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menuDropdown');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function showSection(section) {
+      // Oculta bienvenida
+      document.getElementById('welcomeMessage').style.display = 'none';
+
+      // Oculta todas las secciones
+      document.getElementById('bannerSection').style.display = 'none';
+      document.getElementById('pdfSection').style.display = 'none';
+      document.getElementById('videoSection').style.display = 'none';
+
+      // Muestra solo la sección seleccionada
+      if (section === 'banner') {
+        document.getElementById('bannerSection').style.display = 'block';
+      } else if (section === 'pdf') {
+        document.getElementById('pdfSection').style.display = 'block';
+      } else if (section === 'video') {
+        document.getElementById('videoSection').style.display = 'block';
+      }
+
+      // Cierra el menú
+      document.getElementById('menuDropdown').style.display = 'none';
+    }
+
+    // Cerrar menú si se hace clic fuera
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('menuDropdown');
+      const button = document.querySelector('.menu-button');
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
